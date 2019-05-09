@@ -2,22 +2,34 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
+# My initial implementation: avg runtime 149 us; median runtime 20 us
 class Stack:
+    def __init__(self):
+        self.stack = []
+        self.max_list = []
+
     def empty(self):
-        # TODO - you fill in here.
-        return True
+        is_empty = len(self.stack) == 0
+        return is_empty
 
     def max(self):
-        # TODO - you fill in here.
-        return 0
+        max_item = self.max_list[-1]
+        return max_item
 
     def pop(self):
-        # TODO - you fill in here.
-        return 0
+        self.max_list.pop()
 
-    def push(self, x):
-        # TODO - you fill in here.
-        return
+        top_item = self.stack.pop()
+        return top_item
+
+    def push(self, item):
+        self.stack.append(item)
+
+        if self.max_list:
+            next_max = max(item, self.max())
+            self.max_list.append(next_max)
+        else:
+            self.max_list.append(item)
 
 
 def stack_tester(ops):
