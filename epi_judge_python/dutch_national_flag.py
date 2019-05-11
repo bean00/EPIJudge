@@ -44,7 +44,7 @@ def partition_one_pass(pivot_i, A):
             smaller, equal = smaller + 1, equal + 1
         elif A[equal] == pivot:
             equal += 1
-        else: # A[equal] > pivot
+        else:  # A[equal] > pivot
             larger -= 1
             A[larger], A[equal] = A[equal], A[larger]
 
