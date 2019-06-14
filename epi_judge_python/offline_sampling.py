@@ -6,10 +6,15 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+import random
+
 
 def random_sampling(k, A):
-    # TODO - you fill in here.
-    return
+    end = len(A) - 1
+
+    for i in range(k):
+        rand_i = random.randint(i, end)
+        A[i], A[rand_i] = A[rand_i], A[i]
 
 
 @enable_executor_hook
