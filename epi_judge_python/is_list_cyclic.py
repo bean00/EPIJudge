@@ -5,8 +5,16 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
+# Avg runtime 242 us; Median runtime 15 us
 def has_cycle(head):
-    # TODO - you fill in here.
+    curr, previous = head, set()
+
+    while curr.next:
+        if curr.next.data in previous:
+            return curr.next
+        previous.add(curr.data)
+        curr = curr.next
+
     return None
 
 
