@@ -1,4 +1,5 @@
 import functools
+import heapq
 import math
 
 from test_framework import generic_test
@@ -27,8 +28,29 @@ class Star:
 
 
 def find_closest_k_stars(stars, k):
-    # TODO - you fill in here.
-    return []
+    # return put_all_stars_in_min_heap(stars, k)
+    return keep_k_stars_in_max_heap(stars, k)
+
+
+# Avg runtime 304 us; Median runtime 52 us
+def keep_k_stars_in_max_heap(stars, k):
+    max_heap = []
+
+    for star in stars:
+        heapq.heappush(max_heap, (-star.distance, star))
+        if len(max_heap) == k + 1:
+            heapq.heappop(max_heap)
+
+    return [s[1] for s in heapq.nlargest(k, max_heap)]
+
+
+# Avg runtime 1000 us; Median runtime 308 us
+def put_all_stars_in_min_heap(stars, k):
+    stars = list(stars)
+    heapq.heapify(stars)
+    closest_stars = heapq.nsmallest(k, stars)
+
+    return closest_stars
 
 
 def comp(expected_output, output):
