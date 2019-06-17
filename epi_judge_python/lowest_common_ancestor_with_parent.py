@@ -6,9 +6,26 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
+# Avg runtime 2 us; Median runtime 2 us
 def lca(node0, node1):
-    # TODO - you fill in here.
-    return None
+    node0_ancestors, node1_ancestors = [], []
+    lowest_common_ancestor = None
+
+    while node0:
+        node0_ancestors.append(node0)
+        node0 = node0.parent
+    while node1:
+        node1_ancestors.append(node1)
+        node1 = node1.parent
+
+    i, j = len(node0_ancestors) - 1, len(node1_ancestors) - 1
+
+    while (node0_ancestors[i] is node1_ancestors[j]) and ((i and j) >= 0):
+        lowest_common_ancestor = node0_ancestors[i]
+        i -= 1
+        j -= 1
+
+    return lowest_common_ancestor
 
 
 @enable_executor_hook
