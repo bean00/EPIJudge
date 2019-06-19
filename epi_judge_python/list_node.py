@@ -5,9 +5,6 @@ class ListNode:
         self.data = data
         self.next = next
 
-
-
-
     def __eq__(self, other):
         a, b = self, other
         while a and b:
