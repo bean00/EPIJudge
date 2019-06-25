@@ -2,8 +2,19 @@ from test_framework import generic_test
 
 
 def plus_one(A):
-    # TODO - you fill in here.
-    return []
+    i = len(A) - 1
+
+    while A[i] == 9:
+        A[i] = 0
+        i -= 1
+
+    if i < 0:
+        A.append(0)
+        A[0] = 1
+    else:
+        A[i] += 1
+
+    return A
 
 
 if __name__ == '__main__':
