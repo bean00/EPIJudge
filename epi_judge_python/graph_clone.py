@@ -3,6 +3,8 @@ import collections
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+from collections import deque
+
 
 class GraphVertex:
     def __init__(self, label):
@@ -10,9 +12,41 @@ class GraphVertex:
         self.edges = []
 
 
+# Avg runtime 560 us; Median runtime 43 us
 def clone_graph(graph):
-    # TODO - you fill in here.
-    return GraphVertex(0)
+    q = deque()
+    created = set()
+    vertices = {}
+
+    start_label = graph.label
+    start = GraphVertex(start_label)
+    vertices[start_label] = start
+
+    q.append(graph)
+    created.add(start_label)
+
+    while q:
+        from_node = q.popleft()
+        from_label = from_node.label
+
+        for to_node in from_node.edges:
+            to_label = to_node.label
+
+            # create new node
+            if to_label not in vertices:
+                new_node = GraphVertex(to_label)
+                vertices[to_label] = new_node
+
+            # add edge from from_node to my_node (*Not to_node)
+            my_node = vertices[to_label]
+            vertices[from_label].edges.append(my_node)
+
+            # add to_node to q, and to_label to created (if not in created)
+            if to_label not in created:
+                q.append(to_node)
+                created.add(to_label)
+
+    return start
 
 
 def copy_labels(edges):
