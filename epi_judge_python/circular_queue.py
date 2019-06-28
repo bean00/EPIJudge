@@ -2,22 +2,24 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
+# Avg runtime 500 us; Median runtime 29 us
 class Queue:
     def __init__(self, capacity):
-        # TODO - you fill in here.
-        return
+        self.queue = []
+        self.num_elem = 0
 
     def enqueue(self, x):
-        # TODO - you fill in here.
-        return
+        self.queue.append(x)
+        self.num_elem += 1
 
     def dequeue(self):
-        # TODO - you fill in here.
-        return 0
+        first_elem = self.queue[0]
+        self.queue = self.queue[1:]
+        self.num_elem -= 1
+        return first_elem
 
     def size(self):
-        # TODO - you fill in here.
-        return 0
+        return self.num_elem
 
 
 def queue_tester(ops):
