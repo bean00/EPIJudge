@@ -3,7 +3,9 @@ from test_framework.test_failure import TestFailure
 
 
 def find_missing_element(stream):
-    # TODO - you fill in here.
+    elements = list(stream)
+    print(elements)
+    print(sorted(elements))
     return 0
 
 
