@@ -3,16 +3,35 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+from collections import deque
+
+WHITE, BLACK, UNSET = 1, -1, 0
+
 
 class GraphVertex:
     def __init__(self):
         self.d = -1
         self.edges = []
+        self.color = UNSET
 
 
 def is_any_placement_feasible(graph):
-    # TODO - you fill in here.
-    return True
+    def bfs(start_node):
+        start_node.color = WHITE
+        q = deque([start_node])
+        while q:
+            node = q.popleft()
+            opposite_color = node.color * -1  # (1 * -1 = -1); (-1 * -1 = 1)
+            for neighbor in node.edges:
+                if neighbor.color == node.color:
+                    return False
+                elif neighbor.color == UNSET:
+                    neighbor.color = opposite_color
+                    q.append(neighbor)
+        return True
+
+    results = [bfs(node) for node in graph if node.color == UNSET]
+    return all(results)
 
 
 @enable_executor_hook
