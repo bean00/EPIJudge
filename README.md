@@ -1,5 +1,7 @@
 # EPI Judge
 
+**NOTE**: I forked the author's original repository, so I could write my own solutions and test them.
+
 ## Introduction
 
 EPI Judge consists of the following:
