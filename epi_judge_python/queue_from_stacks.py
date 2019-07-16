@@ -1,14 +1,26 @@
 from test_framework import generic_test
 
+from collections import deque
 
+
+# Using a deque for queue
+# - Avg runtime 94 us; Median runtime 24 us
+# Using 2 stacks for queue
+# - Avg runtime 106 us; Median runtime 35 us
 class Queue:
+    def __init__(self):
+        self.insert = deque()
+        self.remove = deque()
+
     def enqueue(self, x):
-        # TODO - you fill in here.
-        return
+        self.insert.append(x)
 
     def dequeue(self):
-        # TODO - you fill in here.
-        return 0
+        if not self.remove:
+            while self.insert:
+                elem = self.insert.pop()
+                self.remove.append(elem)
+        return self.remove.pop()
 
 
 def queue_tester(ops):
