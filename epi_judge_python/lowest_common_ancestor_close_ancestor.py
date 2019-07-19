@@ -7,8 +7,45 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def lca(node0, node1):
-    # TODO - you fill in here.
-    return None
+    return my_solution(node0, node1)
+    # return author_solution(node0, node1)
+
+
+# Avg runtime 4 us; Median runtime 3 us
+def my_solution(node0, node1):
+    sets = [set(), set()]
+
+    while not sets[0] & sets[1]:
+        if node0:
+            sets[0].add(node0)
+            node0 = node0.parent
+        if node1:
+            sets[1].add(node1)
+            node1 = node1.parent
+
+    ancestor_set = sets[0] & sets[1]
+    ancestor = ancestor_set.pop()
+
+    return ancestor
+
+
+# Avg runtime 2 us; Median runtime 2 us
+def author_solution(node0, node1):
+    iter0, iter1 = node0, node1
+    nodes_on_path_to_root = set()
+    while iter0 or iter1:
+        # Ascend tree in tandem for these two nodes
+        if iter0:
+            if iter0 in nodes_on_path_to_root:
+                return iter0
+            nodes_on_path_to_root.add(iter0)
+            iter0 = iter0.parent
+        if iter1:
+            if iter1 in nodes_on_path_to_root:
+                return iter1
+            nodes_on_path_to_root.add(iter1)
+            iter1 = iter1.parent
+    raise ValueError('node0 and node1 are not in the same tree')
 
 
 @enable_executor_hook
