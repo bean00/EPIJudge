@@ -1,9 +1,12 @@
 from test_framework import generic_test
 
+import math
+
 
 def number_of_ways(r, c):
     return iteratively(r, c)
     # return recursively(r, c)
+    # return binomial_coefficient(r, c)
 
 
 # My solution
@@ -33,6 +36,18 @@ def recursively(n, m):
 
     recursively = [[0] * m for _ in range(n)]
     return compute_number_of_ways_to_xy(n - 1, m - 1)
+
+
+# My O(1) solution
+# Avg runtime 2 us; Median runtime 2 us
+def binomial_coefficient(r, c):
+    row_idx, col_idx = r - 1, c - 1
+    n = row_idx + col_idx
+    k = col_idx
+
+    num_ways = math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
+
+    return num_ways
 
 
 if __name__ == '__main__':
