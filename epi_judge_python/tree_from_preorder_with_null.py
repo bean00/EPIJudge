@@ -3,10 +3,26 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+from binary_tree_node import BinaryTreeNode
+
 
 def reconstruct_preorder(preorder):
-    # TODO - you fill in here.
-    return None
+    return author_solution(preorder)
+
+
+def author_solution(preorder):
+    def reconstruct_preorder_helper(preorder_iter):
+        subtree_key = next(preorder_iter)
+        if subtree_key is None:
+            return None
+
+        # Note that reconstruct_preorder_helper updates preorder_iter. So the
+        # order of the following two calls is critical
+        left_subtree = reconstruct_preorder_helper(preorder_iter)
+        right_subtree = reconstruct_preorder_helper(preorder_iter)
+        return BinaryTreeNode(subtree_key, left_subtree, right_subtree)
+
+    return reconstruct_preorder_helper(iter(preorder))
 
 
 @enable_executor_hook
