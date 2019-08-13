@@ -2,8 +2,22 @@ from test_framework import generic_test
 
 
 def matrix_search(A, x):
-    # TODO - you fill in here.
-    return True
+    return my_solution(A, x)
+
+
+def my_solution(A, x):
+    num_rows, num_cols = len(A), len(A[0])
+    r, c = 0, num_cols - 1
+
+    while r <= num_rows - 1 and c >= 0:
+        if A[r][c] == x:
+            return True
+        elif A[r][c] < x:
+            r += 1
+        else:  # A[r][c] > x
+            c -= 1
+
+    return False
 
 
 if __name__ == '__main__':
